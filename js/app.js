@@ -82,16 +82,16 @@ function addToSelectedCards(index){
     selectedCards.push(index);
   }
   updateNodes();
+  if(isMatched(selectedCards) && selectedCards.length === 2){
+    matchedCards = matchedCards.concat(selectedCards);
+    selectedCards = [];
+    updateNodes();
+  }
   if (selectedCards.length === 2){
     movesCount++;
     blankStars(movesCount);
     moves.innerHTML = movesCount;
-   
-    if(isMatched(selectedCards)){
-      matchedCards = matchedCards.concat(selectedCards);
-      selectedCards = [];
-      updateNodes();
-    }
+    selectedCards = [];
   }
 }
 
@@ -122,27 +122,20 @@ function updateNodes() {
           c.classList.remove('open', 'show', 'wrong','animated','infinite', 'wobble');  
         }, 500); 
       }
-    } else {
+    } else{
       if(includes(matchedCards, index)){
         c.classList.remove('wrong');
+        c.classList.remove('animated','infinite', 'wobble'); 
+        c.classList.add('match','rubberBand', 'animated','infinite');
        
-        
-          c.classList.add('match', 'animated','infinite', 'rubberBand');
-       
-        setTimeout(function () {
-       c.classList.remove('animated','infinite', 'rubberBand'); 
-       }, 500);
-        if(matchedCards.length === 16){
-          //const PlayTime = timer.value;
-          second;
+         setTimeout(function () {
+          c.classList.remove('rubberBand', 'animated','infinite'); 
+        }, 500);
+        if(matchedCards.length === 16){      
           winner();
           timerReset (startTimer);
-          blankStars(movesCount);
         }
       }
-      // else if (!includes(matchedCards, index)) {
-      //       c.classList.remove('open', 'show');  
-      // }
     }
   });
 };
@@ -196,7 +189,8 @@ function winner(){
     closeOnEsc: false,
 	  allowOutsideClick: false,
     title: "congratulations! You Won!",
-    text: 'With ' + movesCount + ' Moves and ' + starsCount + ' Stars in ' + second+ ' Seconds.\n Woooooo!',
+    text: 'With ' + movesCount + ' Moves and ' + starsCount + ' Stars in ' + 
+    timer.innerHTML  + ' Seconds.\n Woooooo!',
     icon: "success",
     button: "Play again!",
   }).then(function (isConfirm) {
