@@ -111,19 +111,6 @@ h1 {
     cursor: pointer;
 }
 
-/* @media only screen and (max-width: 350px){
-   
-    .deck{
-        width: 240px; 
-        min-height: 200px;
-    }
-    .deck .card{
-        width: 50px;
-        height: 50px;
-       
-      }
-
-} */
 
 @media only screen and (max-width: 800px){
     
@@ -134,6 +121,11 @@ h1 {
     .deck .card{
         width: 75px;
         height: 75px;
-       
       }
+      .deck .card.show {
+        font-size: 30px;
+    }
+    .deck .card.match {
+        font-size: 30px;
+    }
 }
