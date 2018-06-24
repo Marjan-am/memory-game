@@ -111,8 +111,24 @@ h1 {
     cursor: pointer;
 }
 
-
 @media only screen and (max-width: 800px){
+    .deck{
+        width: 480px;
+        min-height: 480px;
+    }
+    .deck .card{
+        width: 85px;
+        height: 85px;
+      }
+    .deck .card.show {
+        font-size: 30px;
+    }
+    .deck .card.match {
+        font-size: 30px;
+    }
+}
+
+@media only screen and (max-width: 450px){
     
     .deck{
         width: 400px;
@@ -123,9 +139,9 @@ h1 {
         height: 75px;
       }
       .deck .card.show {
-        font-size: 30px;
+        font-size: 28px;
     }
     .deck .card.match {
-        font-size: 30px;
+        font-size: 28px;
     }
 }
