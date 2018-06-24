@@ -108,6 +108,7 @@ function includes(list, item) {
   return list.indexOf(item) > -1;
 };
 
+// animation from https://github.com/daneden/animate.css
 function updateNodes() {
     
   console.log('>>> open:', matchedCards);
@@ -124,6 +125,7 @@ function updateNodes() {
       }
     } else{
       if(includes(matchedCards, index)){
+        if(!c.classList.contains('match')){
         c.classList.remove('wrong');
         c.classList.remove('animated','infinite', 'wobble'); 
         c.classList.add('match','rubberBand', 'animated','infinite');
@@ -131,6 +133,8 @@ function updateNodes() {
          setTimeout(function () {
           c.classList.remove('rubberBand', 'animated','infinite'); 
         }, 500);
+      }
+        
         if(matchedCards.length === 16){      
           winner();
           timerReset (startTimer);
@@ -175,8 +179,7 @@ function startOver(){
   timer.innerHTML = second;
   matchedCards = [];
   selectedCards = [];
-  fullStars();
-  
+  fullStars(); 
 }
 
 restart.addEventListener('click', e => {
@@ -184,6 +187,7 @@ restart.addEventListener('click', e => {
   setTimer();
 });
 
+//popup box from https://github.com/sweetalert2/sweetalert2
 function winner(){
   swal({
     closeOnEsc: false,
