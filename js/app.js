@@ -22,17 +22,17 @@ let movesCount = 0;
 var starsCount = 3;
 
 //Set the timer
-function setTimer (){
-  startTimer = setInterval(function(){
+function setTimer() {
+  startTimer = setInterval(function() {
     timer.innerHTML = 0;
-    if (clicked >= 1){
+    if (clicked >= 1) {
       second++;
       timer.innerHTML = second;
     }   
   }, 1000); 	
 }
 
-function timerReset (time){
+function timerReset(time) {
   clearInterval(time);
 }
 
@@ -72,25 +72,25 @@ function renderCards(deck, list) {
 
 //Pushing the selected cards to the selected cards array
 
-function addToSelectedCards(index){
+function addToSelectedCards(index) {
   
   if (includes(selectedCards, index) || includes(matchedCards, index)) {
     return;
   }
   
-  if(selectedCards.length < 2){
+  if (selectedCards.length < 2) {
     selectedCards.push(index);
   } else {
     selectedCards = [];
     selectedCards.push(index);
   }
   updateNodes();
-  if(isMatched(selectedCards) && selectedCards.length === 2){
+  if (isMatched(selectedCards) && selectedCards.length === 2) {
     matchedCards = matchedCards.concat(selectedCards);
     selectedCards = [];
     updateNodes();
   }
-  if (selectedCards.length === 2){
+  if (selectedCards.length === 2) {
     movesCount++;
     blankStars(movesCount);
     moves.innerHTML = movesCount;
@@ -99,7 +99,7 @@ function addToSelectedCards(index){
 }
 
 //Checking the matched cards
-function isMatched(flippedCards){
+function isMatched(flippedCards) {
   const first = flippedCards[0];
   const second = flippedCards[1];
   console.log('matched: ', cardsList[first] === cardsList[second]);
@@ -126,9 +126,9 @@ function updateNodes() {
           c.classList.remove('open', 'show', 'wrong','animated','infinite', 'wobble');  
         }, 500); 
       }
-    } else{
-      if(includes(matchedCards, index)){
-        if(!c.classList.contains('match')){
+    } else {
+      if (includes(matchedCards, index)) {
+        if (!c.classList.contains('match')) {
         c.classList.remove('wrong');
         c.classList.remove('animated','infinite', 'wobble'); 
         c.classList.add('match','rubberBand', 'animated','infinite');
@@ -138,7 +138,7 @@ function updateNodes() {
         }, 500);
       }
         
-        if(matchedCards.length === 16){      
+        if (matchedCards.length === 16) {      
           winner();
           timerReset (startTimer);
         }
@@ -149,22 +149,22 @@ function updateNodes() {
 
 //Making blank stars
 function blankStars(movesCount){
-	if(movesCount > 12 && movesCount < 18){
+	if (movesCount > 12 && movesCount < 18) {
     starsCount = 2;
 	  stars[0].classList.remove('fa-star');
 	  stars[0].classList.add('fa-star-o');
-	} else if(movesCount > 18 && movesCount < 25){
+	} else if (movesCount > 18 && movesCount < 25) {
     starsCount = 1;
 	  stars[1].classList.remove('fa-star');
 	  stars[1].classList.add('fa-star-o');
-	}else if(movesCount > 25){
+	}else if (movesCount > 25) {
 	  starsCount = 1;
 	}
   return starsCount;
  }
 
  //Making full stars
-function fullStars(){
+function fullStars() {
   stars[0].classList.remove('fa-star-o');
   stars[0].classList.add('fa-star');
   stars[1].classList.remove('fa-star-o');
@@ -172,7 +172,7 @@ function fullStars(){
 };
 
 
-function startOver(){
+function startOver() {
   deck.innerHTML = '';
   updateNodes();
   renderCards(deck,shuffle(cardsList));
@@ -193,7 +193,7 @@ restart.addEventListener('click', e => {
 });
 
 //Popup box from https://github.com/sweetalert2/sweetalert2
-function winner(){
+function winner() {
   swal({
     closeOnEsc: false,
 	  allowOutsideClick: false,
