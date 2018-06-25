@@ -16,6 +16,7 @@ const restart = document.querySelector('.restart');
 let matchedCards = [];
 let selectedCards = [];
 let second = 0;
+let clicked = 0;
 let startTimer;
 let movesCount = 0;
 var starsCount = 3;
@@ -23,8 +24,11 @@ var starsCount = 3;
 //Set the timer
 function setTimer (){
   startTimer = setInterval(function(){
-    timer.innerHTML = second;
-    second++;
+    timer.innerHTML = 0;
+    if (clicked >= 1){
+      second++;
+      timer.innerHTML = second;
+    }   
   }, 1000); 	
 }
 
@@ -47,8 +51,7 @@ function shuffle(array) {
 }
 
 
-//create and append cards to html.Create random cards.Flipping cards
-
+//Create and append cards to html.Create random cards.Flipping cards
 function renderCards(deck, list) {
   list.forEach((elem, index) => {
     
@@ -60,7 +63,7 @@ function renderCards(deck, list) {
     i.className = "fa fa-" + list[index];
 
     li.addEventListener('click', e => {
-    //e.target.classList.add('open', 'show');
+      clicked++;
       addToSelectedCards(index);
     })
     
@@ -108,7 +111,7 @@ function includes(list, item) {
   return list.indexOf(item) > -1;
 };
 
-// animation from https://github.com/daneden/animate.css
+//Animation from https://github.com/daneden/animate.css
 function updateNodes() {
     
   console.log('>>> open:', matchedCards);
@@ -168,11 +171,13 @@ function fullStars(){
   stars[1].classList.add('fa-star');
 };
 
+
 function startOver(){
   deck.innerHTML = '';
   updateNodes();
   renderCards(deck,shuffle(cardsList));
   second = 0;
+  clicked = 0;
   timerReset (startTimer );
   movesCount = 0;
   moves.innerHTML = movesCount;
@@ -181,13 +186,13 @@ function startOver(){
   selectedCards = [];
   fullStars(); 
 }
-
+//Reset button
 restart.addEventListener('click', e => {
   startOver();
   setTimer();
 });
 
-//popup box from https://github.com/sweetalert2/sweetalert2
+//Popup box from https://github.com/sweetalert2/sweetalert2
 function winner(){
   swal({
     closeOnEsc: false,
