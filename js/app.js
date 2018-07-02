@@ -1,13 +1,14 @@
-const cardsList = [
-  'leaf', 'leaf', 
-  'cube', 'cube', 
-  'anchor', 'anchor', 
-  'paper-plane-o', 'paper-plane-o', 
-  'bomb', 'bomb', 
-  'diamond', 'diamond', 
-  'bolt', 'bolt', 
-  'bicycle', 'bicycle'
+let cardsList = [
+  'leaf',  
+  'cube',  
+  'anchor',
+  'paper-plane-o',  
+  'bomb', 
+  'diamond', 
+  'bolt', 
+  'bicycle'
 ];
+cardsList = cardsList.concat(cardsList);
 const deck = document.querySelector('.deck');
 const moves = document.querySelector('.moves');
 const timer = document.querySelector('.timer');
@@ -114,8 +115,6 @@ function includes(list, item) {
 //Animation from https://github.com/daneden/animate.css
 function updateNodes() {
     
-  console.log('>>> open:', matchedCards);
-  console.log('>>> selected:', selectedCards);
   const children = deck.childNodes;
   children.forEach((c, index) => { 
     if (includes(selectedCards, index)) {  
@@ -198,8 +197,10 @@ function winner() {
     closeOnEsc: false,
 	  allowOutsideClick: false,
     title: "congratulations! You Won!",
-    text: 'With ' + movesCount + ' Moves and ' + starsCount + ' Stars in ' + 
-    timer.innerHTML  + ' Seconds.\n Woooooo!',
+    // text: 'With ' + movesCount + ' Moves and ' + starsCount + ' Stars in ' + 
+    // timer.innerHTML  + ' Seconds.\n Woooooo!',
+    text:`With ${movesCount} Moves and ${starsCount} Stars in ${timer.innerHTML} Seconds.
+      Woooooo!`,
     icon: "success",
     button: "Play again!",
   }).then(function (isConfirm) {
